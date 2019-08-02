@@ -5,6 +5,8 @@ var path = require('path');
 var server = require('http').createServer(app);
 var io = require('../lib')(server);
 var port = process.env.PORT || 3000;
+var Game = require('./game');
+var game = new Game();
 
 server.listen(port, () => {
   console.log('Server listening at port %d', port);
@@ -23,6 +25,23 @@ io.on('connection', (socket) => {
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
     // we tell the client to execute 'new message'
+    if(data === "start")
+    {
+      game.startGame();
+      io.emit('game message',{
+        message:'Game Started'
+      })
+
+      setTimeout(()=>{
+        io.emit('game message',{
+          message: 'Choose your weapon'
+        })
+
+        io.emit('game command',{
+          command:'showWeapons'
+        })
+      },2500)
+    }
     socket.broadcast.emit('new message', {
       username: socket.username,
       message: data

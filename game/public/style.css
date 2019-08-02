@@ -108,11 +108,21 @@ ul {
   margin: 5px;
   text-align: center;
 }
-
+.gameArea{
+  height:100%;
+  width:75%;
+  background:#659CB5;
+  float:left;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /* Messages */
 
 .chatArea {
+  float:left;
   height: 100%;
+  width:25%;
   padding-bottom: 60px;
 }
 

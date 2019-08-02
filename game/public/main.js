@@ -74,6 +74,10 @@ $(function() {
     addMessageElement($el, options);
   }
 
+  const addGameMessage = (data,options)=>{
+    var $gameMessageDiv = $('.gameMessages').text(data.message);
+
+  }
   // Adds the visual chat message to the message list
   const addChatMessage = (data, options) => {
     // Don't fade the message in if there is an 'X was typing'
@@ -229,7 +233,7 @@ $(function() {
   socket.on('login', (data) => {
     connected = true;
     // Display the welcome message
-    var message = "Welcome to Socket.IO Chat – ";
+    var message = "🗿 📝 ✂️";
     log(message, {
       prepend: true
     });
@@ -241,6 +245,10 @@ $(function() {
     addChatMessage(data);
   });
 
+  socket.on('game message', (data)=>{
+    console.log('game message received');
+    addGameMessage(data);
+  })
   // Whenever the server emits 'user joined', log it in the chat body
   socket.on('user joined', (data) => {
     log(data.username + ' joined');
