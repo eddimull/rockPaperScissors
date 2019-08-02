@@ -35,6 +35,15 @@ $(function() {
     log(message);
   }
 
+  const calculateUsers = (data) =>
+  {
+
+    $('.activeUsers li').remove();
+    data.users.forEach(element => {
+      $('.activeUsers').append('<li>' + element + '</li>');
+    });
+  }
+
   // Sets the client's username
   const setUsername = () => {
     username = cleanInput($usernameInput.val().trim());
@@ -248,6 +257,7 @@ $(function() {
       prepend: true
     });
     addParticipantsMessage(data);
+    calculateUsers(data);
   });
 
   // Whenever the server emits 'new message', update the chat body
@@ -266,6 +276,7 @@ $(function() {
   socket.on('user joined', (data) => {
     log(data.username + ' joined');
     addParticipantsMessage(data);
+    calculateUsers(data);
   });
 
   // Whenever the server emits 'user left', log it in the chat body
@@ -273,6 +284,7 @@ $(function() {
     log(data.username + ' left');
     addParticipantsMessage(data);
     removeChatTyping(data);
+    calculateUsers(data);
   });
 
   // Whenever the server emits 'typing', show the typing message
