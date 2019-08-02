@@ -109,14 +109,21 @@ ul {
   text-align: center;
 }
 .gameArea{
-  height:100%;
-  width:75%;
+  height:75%;
+  width:50%;
   background:#659CB5;
   float:left;
   display: flex;
   align-items: center;
   justify-content: center;
 }
+.weaponsArea{
+  float:right;
+  height:75%;
+  width:30%;
+  background:rgb(223, 233, 35);
+}
+
 /* Messages */
 .weapons{
   position: absolute;
@@ -136,7 +143,7 @@ ul {
 .chatArea {
   float:left;
   height: 100%;
-  width:25%;
+  width:20%;
   padding-bottom: 60px;
 }
 
