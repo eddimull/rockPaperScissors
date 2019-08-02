@@ -60,7 +60,7 @@ $(function() {
     }
   }
 
-  // Sends a chat message
+  // Sends a chat messagemlnkjk
   const sendMessage = () => {
     var message = $inputMessage.val();
     // Prevent markup from being injected into the message
