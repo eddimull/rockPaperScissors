@@ -78,6 +78,16 @@ $(function() {
     var $gameMessageDiv = $('.gameMessages').text(data.message);
 
   }
+
+  const runGameCommand = (data)=>{
+    console.log('running game command');
+    switch(data.command)
+    {
+      case 'showWeapons':
+        $('.weapons').addClass('weaponsInView');
+      break;
+    }
+  }
   // Adds the visual chat message to the message list
   const addChatMessage = (data, options) => {
     // Don't fade the message in if there is an 'X was typing'
@@ -246,8 +256,11 @@ $(function() {
   });
 
   socket.on('game message', (data)=>{
-    console.log('game message received');
     addGameMessage(data);
+  })
+
+  socket.on('game command', (data)=>{
+    runGameCommand(data);
   })
   // Whenever the server emits 'user joined', log it in the chat body
   socket.on('user joined', (data) => {

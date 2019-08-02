@@ -118,7 +118,21 @@ ul {
   justify-content: center;
 }
 /* Messages */
-
+.weapons{
+  position: absolute;
+  transform: translateY(-1000px);
+  transition:all 0.25s;
+}
+.weapons img
+{
+  cursor:pointer;
+}
+.weapons img:hover{
+  background:white;
+}
+.weaponsInView{
+  transform: translateY(-100px);
+}
 .chatArea {
   float:left;
   height: 100%;

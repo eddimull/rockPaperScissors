@@ -33,13 +33,15 @@ io.on('connection', (socket) => {
       })
 
       setTimeout(()=>{
+        io.emit('game command',{
+          command:'showWeapons'
+        })
+       
         io.emit('game message',{
           message: 'Choose your weapon'
         })
 
-        io.emit('game command',{
-          command:'showWeapons'
-        })
+
       },2500)
     }
     socket.broadcast.emit('new message', {
