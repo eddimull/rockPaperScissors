@@ -23,28 +23,77 @@ var users = [];
 io.on('connection', (socket) => {
   var addedUser = false;
 
+  //Start game when play button is clicked
+
+  socket.on('playButtonClicked', function() {
+    game.startGame();
+    io.emit("game message", {
+      message: "Game Started"
+    });
+
+    setTimeout(() => {
+      io.emit("game command", {
+        command: "showWeapons"
+      });
+
+      io.emit("game message", {
+        message: "Choose your weapon"
+      });
+    }, 200);
+  });
+
+  //Assigning selected weapon to corresponding active user
+  socket.on('weaponSelected', (selectedWeapon, username) => {
+
+    for (var i = 0; i < users.length; i++){
+      if(username === users[i].username){
+        users[i].selectedWeapon = selectedWeapon;
+      }
+      // console.log(users[i].username, users[i].selectedWeapon);
+    };
+    
+    var endGame = true;
+    for (var i = 0; i < users.length; i++){
+      if(users[i].selectedWeapon === ""){
+        endGame = false;
+      }
+    }
+
+    if (endGame){
+      determineWinner();
+    }
+
+  }); 
+
+  // Function to determine the winner
+  function determineWinner(){
+    console.log("Avengers Assemble!!!!!!!!!!");
+    for (var i = 0; i < users.length; i++){
+      
+    };
+  };
+
   // when the client emits 'new message', this listens and executes
   socket.on('new message', (data) => {
     // we tell the client to execute 'new message'
-    if(data === "start")
-    {
-      game.startGame();
-      io.emit('game message',{
-        message:'Game Started'
-      })
+    // if(data === "start") {
+    //   console.log("start typed");
+    //   game.startGame();
+    //   io.emit("game message", {
+    //     message: "Game Started"
+    //   });
 
-      setTimeout(()=>{
-        io.emit('game command',{
-          command:'showWeapons'
-        })
-       
-        io.emit('game message',{
-          message: 'Choose your weapon'
-        })
+    //   setTimeout(() => {
+    //     io.emit("game command", {
+    //       command: "showWeapons"
+    //     });
 
-
-      },2500)
-    }
+    //     io.emit("game message", {
+    //       message: "Choose your weapon"
+    //     });
+    //   }, 2500);
+    // }
+   
     socket.broadcast.emit('new message', {
       username: socket.username,
       message: data
@@ -54,9 +103,10 @@ io.on('connection', (socket) => {
   // when the client emits 'add user', this listens and executes
   socket.on('add user', (username) => {
     if (addedUser) return;
-    users.push(username);
+    var user = {"username":username, "selectedWeapon":""};
+    users.push(user);
     // we store the username in the socket session for this client
-    socket.username = username;
+    socket.username = user.username;
     // ++numUsers;
     addedUser = true;
     socket.emit('login', {
@@ -88,11 +138,11 @@ io.on('connection', (socket) => {
   // when the user disconnects.. perform this
   socket.on('disconnect', () => {
     for(var i = users.length - 1; i >= 0; i--) {
-      if(users[i] === socket.username) {
+      if(users[i].username === socket.username) {
         users.splice(i, 1);
       }
     }
-console.log(users,socket.username);
+// console.log(users,socket.username);
     if (addedUser) {
       // --numUsers;
 

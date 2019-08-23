@@ -137,6 +137,7 @@ ul {
 
 .weaponsInView{
   transform: translateY(0px);
+  text-align: center;
   background: purple;
 }
 
@@ -151,18 +152,29 @@ ul {
 } */
 
 .weapons div{
+  cursor: pointer;
   width: 70%;
   height: 20%;
   background: plum;
   border: 5px solid black;
-  margin: 2% 2% 2% 2%;
+  margin: 25% auto;
 }
 
 .weapons div img{
   height: 100%;
-  display:block;
-  margin:auto;
+  display: block;
+  margin: auto;
 }
+
+.gameMessages{
+  text-align: center;
+}
+
+#playButton{
+  cursor: pointer;
+  width: 50%;
+}
+
 
 /* #rock{
   width: 100%;

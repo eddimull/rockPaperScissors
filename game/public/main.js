@@ -39,8 +39,9 @@ $(function() {
   {
 
     $('.activeUsers li').remove();
+    console.log(data.users);
     data.users.forEach(element => {
-      $('.activeUsers').append('<li>' + element + '</li>');
+      $('.activeUsers').append('<li>' + element.username + '</li>');
     });
   }
 
@@ -310,6 +311,15 @@ $(function() {
 
   socket.on('reconnect_error', () => {
     log('attempt to reconnect has failed');
+  });
+
+  $("#playButton").on("click", function() {
+    socket.emit("playButtonClicked");
+  })
+
+  $(".weaponButton").on("click", function() {
+    var selectedWeapon = $(this).attr("id");
+    socket.emit('weaponSelected', selectedWeapon, username);
   });
 
 });
